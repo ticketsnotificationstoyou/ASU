@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en" data-t-en="AppStoreUploader Support" data-t-ru="Поддержка AppStoreUploader">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AppStoreUploader Support</title>
+<meta name="description" content="Setup guide, free vs Pro, and troubleshooting for AppStoreUploader (ASU).">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--fg:#1c1f2a;--muted:#5d6477;--line:#e3e6ef;--accent:#4f46e5;--accent-soft:#eceafd;--warn:#fff6e0;--warn-line:#f0d58a;--code:#f0f1f7}
+@media (prefers-color-scheme:dark){:root{--bg:#10121a;--card:#181b26;--fg:#e8eaf2;--muted:#9aa1b6;--line:#2a2f40;--accent:#8b86ff;--accent-soft:#25244a;--warn:#2d2614;--warn-line:#6b5a22;--code:#222638}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}
+header.top{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+header.top img{width:64px;height:64px;border-radius:14px;flex:none}
+header.top h1{margin:0;font-size:1.7rem;line-height:1.2;text-wrap:balance}
+header.top p{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+nav.toc a{padding:6px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);text-decoration:none;font-size:.9rem}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:0 0 18px}
+h2{margin:0 0 12px;font-size:1.25rem;text-wrap:balance}
+h3{margin:18px 0 6px;font-size:1.02rem}
+p{margin:0 0 12px}ul,ol{margin:0 0 12px;padding-left:22px}li{margin:4px 0}
+a{color:var(--accent)}
+code{background:var(--code);padding:1px 6px;border-radius:6px;font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace}
+.note{background:var(--warn);border:1px solid var(--warn-line);border-radius:10px;padding:12px 14px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.plan{border:1px solid var(--line);border-radius:12px;padding:16px}
+.plan.pro{border-color:var(--accent);background:var(--accent-soft)}
+.plan h3{margin-top:0}
+.small{color:var(--muted);font-size:.9rem}
+footer{color:var(--muted);font-size:.9rem;text-align:center;margin-top:28px}
+table{width:100%;border-collapse:collapse;margin:8px 0 12px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
+.lang{position:absolute;top:14px;right:16px;display:flex;gap:0;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card);z-index:5}
+.lang button{border:0;background:transparent;color:var(--muted);font:600 .85rem/1 inherit;font-family:inherit;padding:8px 14px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.wrap{position:relative}
+header.top{padding-right:110px}
+@media (max-width:480px){header.top{padding-right:0;padding-top:44px}}
+html:not([data-l="ru"]) [data-lang="ru"]{display:none}
+html[data-l="ru"] [data-lang="en"]{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="lang" role="group" aria-label="Language"><button type="button" data-set="ru" aria-pressed="false">RU</button><button type="button" data-set="en" aria-pressed="true">EN</button></div>
+<div data-lang="en">
+<header class="top">
+  <img src="logo.png" alt="AppStoreUploader logo">
+  <div>
+    <h1>AppStoreUploader Support</h1>
+    <p>Translate and upload your App Store metadata in a few clicks.</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#start">Getting started</a>
+  <a href="#use">How to use</a>
+  <a href="#plans">Free vs Pro</a>
+  <a href="#names">App name note</a>
+  <a href="#help">Troubleshooting</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="start">
+  <h2>1. Getting started (one-time setup)</h2>
+  <p>AppStoreUploader (ASU) talks to your App Store Connect account directly. To allow that, Apple requires an <b>App Store Connect API key</b>. You create it once and enter three values in ASU:
+  the <b>Key ID</b>, the <b>Issuer ID</b>, and the <b>private key file</b> (<code>.p8</code>).</p>
+
+  <h3>What you need</h3>
+  <ul>
+    <li>A Mac. Free on-device translation needs <b>macOS 15 or later</b>.</li>
+    <li>An Apple Developer account. Only the <b>Account Holder</b> or an <b>Admin</b> can create API keys.</li>
+  </ul>
+
+  <h3>Create the key in App Store Connect</h3>
+  <ol>
+    <li>Sign in at <a href="https://appstoreconnect.apple.com" target="_blank" rel="noopener">appstoreconnect.apple.com</a>.</li>
+    <li>Open <b>Users and Access</b> &rarr; <b>Integrations</b> &rarr; <b>App Store Connect API</b> &rarr; <b>Team Keys</b>.</li>
+    <li>Copy the <b>Issuer ID</b> shown at the top of the page (a long code like <code>11523f53-2a06-…</code>).</li>
+    <li>Click <b>Generate API Key</b> (or the <b>+</b> button). Give it any name, for example <i>ASU</i>, and choose the access role <b>App Manager</b> (or Admin).</li>
+    <li>Copy the <b>Key ID</b> of the new key (10 characters).</li>
+    <li>Click <b>Download API Key</b> to get the file <code>AuthKey_XXXXXXXXXX.p8</code>.</li>
+  </ol>
+  <div class="note"><b>Important:</b> Apple lets you download the <code>.p8</code> file <b>only once</b>. Store it safely. If you lose it, revoke the key and create a new one.</div>
+
+  <h3>Enter the three values in ASU</h3>
+  <ol>
+    <li>Open ASU and go to <b>Setup</b>.</li>
+    <li>Enter the <b>Key ID</b> and the <b>Issuer ID</b>.</li>
+    <li>Load the private key in one of two ways: press <b>Import .p8 File&hellip;</b> and choose your <code>AuthKey_XXXXXXXXXX.p8</code> file, <b>or</b> open the file in any text editor and paste its <b>entire contents</b> (including the <code>BEGIN</code> / <code>END</code> lines) into the private key field.</li>
+    <li>Press <b>Save ASC Credentials</b>, then <b>Validate Connection</b> to check that everything works. Your keys are stored in the macOS Keychain on your Mac and are never sent to us.</li>
+  </ol>
+  <p class="small">You only do this once. If the connection works, your apps appear in the app list.</p>
+</section>
+
+<section id="use">
+  <h2>2. How to use ASU, step by step</h2>
+  <ol>
+    <li><b>Choose your app and version.</b> Pick the app, then the version that is editable (status <i>Prepare for Submission</i>).</li>
+    <li><b>Fill in the main language.</b> In <b>Metadata</b>, write the name, subtitle, keywords, description, promotional text, what&rsquo;s new and your URLs (support, marketing, privacy policy) for your primary language.</li>
+    <li><b>Tick the languages.</b> In <b>Languages</b>, select the languages you want to add. Languages that are already translated are not selected again.</li>
+    <li><b>Press Translate All.</b> Everything is translated inside the app. Open any language in <b>Metadata</b> to review or edit the result.</li>
+    <li><b>Upload.</b> In <b>Upload</b>, you see only the <b>new</b> translations. Press Upload; each language is sent to App Store Connect, and its status is shown. Languages that were already in App Store Connect are not touched.</li>
+    <li><b>Check in App Store Connect</b> and submit your version as usual.</li>
+  </ol>
+  <p class="small">Name and subtitle are limited to 30 characters, keywords to 100, the description to 4000 characters. ASU shortens name and subtitle automatically when a translation is too long.</p>
+</section>
+
+<section id="plans">
+  <h2>3. Free vs Pro</h2>
+  <div class="grid">
+    <div class="plan">
+      <h3>Free</h3>
+      <ul>
+        <li>On-device translation by Apple (macOS 15+).</li>
+        <li>About 20 major languages (Arabic, Chinese, Dutch, English, French, German, Hindi, Indonesian, Italian, Japanese, Korean, Polish, Portuguese, Russian, Spanish, Thai, Turkish, Ukrainian, Vietnamese).</li>
+        <li><b>Language packs must be downloaded first</b> (macOS &rarr; System Settings &rarr; General &rarr; Language &amp; Region &rarr; Translation Languages). Plan for <b>up to 20&nbsp;GB of free disk space</b>.</li>
+        <li>Works offline after the download. Nothing leaves your Mac.</li>
+      </ul>
+    </div>
+    <div class="plan pro">
+      <h3>Pro (monthly subscription)</h3>
+      <ul>
+        <li>Translation is unlocked instantly for <b>34 App Store languages</b>, all in one click.</li>
+        <li>No language downloads and no extra disk space.</li>
+        <li>Includes languages that Apple&rsquo;s on-device translation does not cover.</li>
+        <li>Pro is selected automatically once you subscribe.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small">Pro is an auto-renewing monthly subscription. The price is shown in the app before you subscribe. Payment is taken from your Apple ID; you can manage or cancel it any time in your Apple ID subscription settings. Use <b>Restore Purchases</b> in the app on a new Mac.</p>
+</section>
+
+<section id="names">
+  <h2>4. Note: app names in other languages</h2>
+  <p>Apple requires an app <b>name to be unique in each storefront</b>. A name that is free in one country can already be taken by another app in another, for example in Japan. When that happens, App Store Connect rejects the name with a message such as <i>&ldquo;the app name you entered is already being used&rdquo;</i>. Because Apple rejects a whole language entry when any of its fields is invalid, a name or subtitle problem can block the other fields too.</p>
+  <h3>What ASU does</h3>
+  <ul>
+    <li>It first tries your original name.</li>
+    <li>If Apple says the name is taken, ASU keeps your name and adds a number: <code>YourApp 2</code>, <code>YourApp 3</code>, &hellip; up to 10.</li>
+    <li>After the upload, an alert lists every language where the name was changed.</li>
+  </ul>
+  <div class="note"><b>What you can do:</b> if you prefer a different name in that language, open the language in App Store Connect (App Information &rarr; Localizable Information) and edit the name manually. You can also type your preferred name in ASU&rsquo;s Metadata screen before uploading.</div>
+</section>
+
+<section id="help">
+  <h2>5. Troubleshooting</h2>
+  <table>
+    <tr><th>Problem</th><th>What to do</th></tr>
+    <tr><td>401 / authentication error</td><td>Check the Key ID, Issuer ID and that the full <code>.p8</code> text was pasted. Make sure the key role is App Manager or Admin and that the key was not revoked.</td></tr>
+    <tr><td>No apps in the list</td><td>The key belongs to a different team, or its role is too low. Create the key in the team that owns the app.</td></tr>
+    <tr><td>Version cannot be edited</td><td>Only versions in <i>Prepare for Submission</i>, <i>Waiting for Review</i> or <i>Rejected</i> states can be changed. Create a new version in App Store Connect.</td></tr>
+    <tr><td>409 &ldquo;name is already used&rdquo;</td><td>See <a href="#names">section 4</a>. The language is retried with a numbered name; adjust it manually if needed.</td></tr>
+    <tr><td>Free translation is unavailable for a language</td><td>Download the language pack in System Settings (macOS 15+), or subscribe to Pro.</td></tr>
+    <tr><td>Pro did not unlock after paying</td><td>Press <b>Restore Purchases</b>. Make sure you are signed in with the same Apple ID.</td></tr>
+  </table>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Questions, bugs or ideas? Write to <a href="mailto:tunnelletter@gmail.com">tunnelletter@gmail.com</a>. Please include your macOS version and, if possible, the full error text shown in the app.</p>
+</section>
+
+<footer>&copy; 2026 Hash and Joy, LLC &middot; <a href="privacy.html">Privacy Policy</a></footer>
+</div>
+<div data-lang="ru">
+<header class="top">
+  <img src="logo.png" alt="Логотип AppStoreUploader">
+  <div>
+    <h1>Поддержка AppStoreUploader</h1>
+    <p>Переводите и загружайте метаданные App Store в несколько кликов.</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#start-ru">Начало работы</a>
+  <a href="#use-ru">Как пользоваться</a>
+  <a href="#plans-ru">Бесплатно и Pro</a>
+  <a href="#names-ru">Про имя приложения</a>
+  <a href="#help-ru">Проблемы</a>
+  <a href="#contact-ru">Контакты</a>
+</nav>
+
+<section id="start-ru">
+  <h2>1. Начало работы (один раз)</h2>
+  <p>AppStoreUploader (ASU) работает с вашим аккаунтом App Store Connect напрямую. Для этого Apple требует <b>API-ключ App Store Connect</b>. Его создают один раз и вводят в ASU три значения: <b>Key ID</b>, <b>Issuer ID</b> и <b>файл приватного ключа</b> (<code>.p8</code>).</p>
+
+  <h3>Что понадобится</h3>
+  <ul>
+    <li>Mac. Бесплатному переводу на устройстве нужна <b>macOS 15 или новее</b>.</li>
+    <li>Аккаунт Apple Developer. Создавать API-ключи может только <b>владелец аккаунта (Account Holder)</b> или <b>администратор (Admin)</b>.</li>
+  </ul>
+
+  <h3>Создайте ключ в App Store Connect</h3>
+  <ol>
+    <li>Войдите на <a href="https://appstoreconnect.apple.com" target="_blank" rel="noopener">appstoreconnect.apple.com</a>.</li>
+    <li>Откройте <b>Users and Access</b> (Пользователи и доступ) &rarr; <b>Integrations</b> (Интеграции) &rarr; <b>App Store Connect API</b> &rarr; <b>Team Keys</b>.</li>
+    <li>Скопируйте <b>Issuer ID</b> в верхней части страницы (длинный код вида <code>11523f53-2a06-…</code>).</li>
+    <li>Нажмите <b>Generate API Key</b> (или кнопку <b>+</b>). Придумайте имя, например <i>ASU</i>, и выберите роль <b>App Manager</b> (или Admin).</li>
+    <li>Скопируйте <b>Key ID</b> нового ключа (10 символов).</li>
+    <li>Нажмите <b>Download API Key</b>, чтобы получить файл <code>AuthKey_XXXXXXXXXX.p8</code>.</li>
+  </ol>
+  <div class="note"><b>Важно:</b> Apple позволяет скачать файл <code>.p8</code> <b>только один раз</b>. Сохраните его в надёжном месте. Если потеряете, отзовите ключ и создайте новый.</div>
+
+  <h3>Введите три значения в ASU</h3>
+  <ol>
+    <li>Откройте ASU и перейдите в <b>Setup</b>.</li>
+    <li>Введите <b>Key ID</b> и <b>Issuer ID</b>.</li>
+    <li>Загрузите приватный ключ одним из двух способов: нажмите <b>Import .p8 File&hellip;</b> и выберите файл <code>AuthKey_XXXXXXXXXX.p8</code>, <b>или</b> откройте файл в любом текстовом редакторе и вставьте его <b>полное содержимое</b> (вместе со строками <code>BEGIN</code> / <code>END</code>) в поле приватного ключа.</li>
+    <li>Нажмите <b>Save ASC Credentials</b>, затем <b>Validate Connection</b>, чтобы проверить соединение. Ключи хранятся в связке ключей macOS (Keychain) на вашем Mac и нам не передаются.</li>
+  </ol>
+  <p class="small">Это делается один раз. Если соединение работает, в списке появятся ваши приложения.</p>
+</section>
+
+<section id="use-ru">
+  <h2>2. Как пользоваться ASU по шагам</h2>
+  <ol>
+    <li><b>Выберите приложение и версию.</b> Версия должна быть доступной для редактирования (статус <i>Prepare for Submission</i>).</li>
+    <li><b>Заполните основной язык.</b> В <b>Metadata</b> укажите название, подзаголовок, ключевые слова, описание, промо-текст, что нового и ссылки (поддержка, маркетинг, политика конфиденциальности) для основного языка.</li>
+    <li><b>Отметьте языки.</b> В <b>Languages</b> выберите языки, которые хотите добавить. Уже переведённые языки повторно не выбираются.</li>
+    <li><b>Нажмите Translate All.</b> Всё переводится прямо в приложении. Любой язык можно открыть в <b>Metadata</b> и проверить или поправить результат.</li>
+    <li><b>Загрузите.</b> В <b>Upload</b> видны только <b>новые</b> переводы. Нажмите Upload: каждый язык отправляется в App Store Connect, статус показывается рядом. Языки, которые уже были в App Store Connect, не затрагиваются.</li>
+    <li><b>Проверьте в App Store Connect</b> и отправьте версию на проверку как обычно.</li>
+  </ol>
+  <p class="small">Название и подзаголовок ограничены 30 символами, ключевые слова 100, описание 4000. Если перевод получился длиннее, ASU автоматически укорачивает название и подзаголовок.</p>
+</section>
+
+<section id="plans-ru">
+  <h2>3. Бесплатная версия и Pro</h2>
+  <div class="grid">
+    <div class="plan">
+      <h3>Бесплатно</h3>
+      <ul>
+        <li>Перевод на устройстве средствами Apple (macOS 15+).</li>
+        <li>Около 20 основных языков (арабский, китайский, нидерландский, английский, французский, немецкий, хинди, индонезийский, итальянский, японский, корейский, польский, португальский, русский, испанский, тайский, турецкий, украинский, вьетнамский).</li>
+        <li><b>Языковые пакеты нужно скачать заранее</b> (Системные настройки &rarr; Основные &rarr; Язык и регион &rarr; Языки перевода). Заложите <b>до 20&nbsp;ГБ свободного места</b>.</li>
+        <li>После загрузки работает офлайн. Ничего не покидает ваш Mac.</li>
+      </ul>
+    </div>
+    <div class="plan pro">
+      <h3>Pro (ежемесячная подписка)</h3>
+      <ul>
+        <li>Перевод сразу открывается для <b>34 языков App Store</b> одним нажатием.</li>
+        <li>Никаких загрузок языков и дополнительного места на диске.</li>
+        <li>Включает языки, которых нет в переводе Apple на устройстве.</li>
+        <li>Pro выбирается автоматически после оформления подписки.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small">Pro это автопродлеваемая ежемесячная подписка. Цена показывается в приложении перед оформлением. Оплата списывается с вашего Apple ID; управлять подпиской и отменять её можно в любой момент в настройках подписок Apple ID. На новом Mac используйте <b>Restore Purchases</b> в приложении.</p>
+</section>
+
+<section id="names-ru">
+  <h2>4. Важно: названия приложения в других языках</h2>
+  <p>Apple требует, чтобы <b>название приложения было уникальным в каждом сторе</b>. Имя, свободное в одной стране, может оказаться занятым другим приложением в другой, например в Японии. Тогда App Store Connect отклоняет имя с сообщением вроде <i>&laquo;the app name you entered is already being used&raquo;</i>. Поскольку Apple отклоняет всю запись языка целиком, если любое её поле невалидно, проблема с именем или подзаголовком может заблокировать и остальные поля.</p>
+  <h3>Что делает ASU</h3>
+  <ul>
+    <li>Сначала пробует ваше исходное имя.</li>
+    <li>Если Apple отвечает, что имя занято, ASU сохраняет ваше имя и добавляет цифру: <code>YourApp 2</code>, <code>YourApp 3</code>, &hellip; до 10.</li>
+    <li>После загрузки появляется уведомление со списком языков, где имя было изменено.</li>
+  </ul>
+  <div class="note"><b>Что можно сделать:</b> если вам нужно другое имя в этом языке, откройте язык в App Store Connect (App Information &rarr; Localizable Information) и измените название вручную. Можно также заранее вписать нужное имя на экране Metadata в ASU.</div>
+</section>
+
+<section id="help-ru">
+  <h2>5. Если что-то не работает</h2>
+  <table>
+    <tr><th>Проблема</th><th>Что делать</th></tr>
+    <tr><td>401 / ошибка авторизации</td><td>Проверьте Key ID, Issuer ID и что вставлен весь текст <code>.p8</code>. Убедитесь, что у ключа роль App Manager или Admin и что он не отозван.</td></tr>
+    <tr><td>Нет приложений в списке</td><td>Ключ создан в другой команде или у него слишком низкая роль. Создайте ключ в команде, которой принадлежит приложение.</td></tr>
+    <tr><td>Версию нельзя редактировать</td><td>Менять можно только версии в статусах <i>Prepare for Submission</i>, <i>Waiting for Review</i> или <i>Rejected</i>. Создайте новую версию в App Store Connect.</td></tr>
+    <tr><td>409 &laquo;имя уже используется&raquo;</td><td>См. <a href="#names-ru">раздел 4</a>. Язык повторяется с именем с цифрой; при необходимости поправьте вручную.</td></tr>
+    <tr><td>Бесплатный перевод недоступен для языка</td><td>Скачайте языковой пакет в системных настройках (macOS 15+) или оформите Pro.</td></tr>
+    <tr><td>Pro не включился после оплаты</td><td>Нажмите <b>Restore Purchases</b>. Убедитесь, что вы вошли с тем же Apple ID.</td></tr>
+  </table>
+</section>
+
+<section id="contact-ru">
+  <h2>Контакты</h2>
+  <p>Вопросы, ошибки, идеи? Пишите на <a href="mailto:tunnelletter@gmail.com">tunnelletter@gmail.com</a>. Укажите версию macOS и, если возможно, полный текст ошибки из приложения.</p>
+</section>
+<footer>&copy; 2026 Hash and Joy, LLC &middot; <a href="privacy.html">Политика конфиденциальности</a></footer>
+</div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY="hj_lang";
+  function get(){try{return localStorage.getItem(KEY)}catch(e){return null}}
+  function put(v){try{localStorage.setItem(KEY,v)}catch(e){}}
+  function apply(l){
+    root.setAttribute("data-l",l); root.lang=l;
+    var t=document.documentElement.getAttribute("data-t-"+l); if(t) document.title=t;
+    var bs=document.querySelectorAll(".lang button");
+    for(var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed", bs[i].getAttribute("data-set")===l ? "true":"false");
+  }
+  var l=get(); if(l!=="ru"&&l!=="en") l=(navigator.language||"en").toLowerCase().indexOf("ru")===0?"ru":"en";
+  apply(l);
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".lang button"); if(!b) return;
+    var v=b.getAttribute("data-set"); put(v); apply(v);
+  });
+})();
+</script>
+</body>
+</html>
