@@ -75,7 +75,7 @@ html[data-l="ru"] [data-lang="en"]{display:none}
 
   <h3>What you need</h3>
   <ul>
-    <li>A Mac. Free on-device translation needs <b>macOS 15 or later</b>.</li>
+    <li>A Mac. Free on-device translation needs <b>macOS 26 or later</b>.</li>
     <li>An Apple Developer account. Only the <b>Account Holder</b> or an <b>Admin</b> can create API keys.</li>
   </ul>
 
@@ -105,12 +105,17 @@ html[data-l="ru"] [data-lang="en"]{display:none}
   <ol>
     <li><b>Choose your app and version.</b> Pick the app, then the version that is editable (status <i>Prepare for Submission</i>).</li>
     <li><b>Fill in the main language.</b> In <b>Metadata</b>, write the name, subtitle, keywords, description, promotional text, what&rsquo;s new and your URLs (support, marketing, privacy policy) for your primary language.</li>
-    <li><b>Tick the languages.</b> In <b>Languages</b>, select the languages you want to add. Languages that are already translated are not selected again.</li>
-    <li><b>Press Translate All.</b> Everything is translated inside the app. Open any language in <b>Metadata</b> to review or edit the result.</li>
-    <li><b>Upload.</b> In <b>Upload</b>, you see only the <b>new</b> translations. Press Upload; each language is sent to App Store Connect, and its status is shown. Languages that were already in App Store Connect are not touched.</li>
+    <li><b>Tick the languages.</b> In <b>Languages</b>, select the languages you want. Languages that are already translated are translated again only in the fields whose main text changed.</li>
+    <li><b>Press Translate All.</b> New languages are translated completely; existing languages only in the changed fields. Open any language in <b>Metadata</b> to review or edit the result.</li>
+    <li><b>Upload.</b> In <b>Upload</b>, you see which <b>fields</b> will be sent to which languages. Only fields that differ from App Store Connect are sent; everything else stays untouched. Need a full rewrite? Turn on <i>Re-send everything</i>.</li>
     <li><b>Check in App Store Connect</b> and submit your version as usual.</li>
   </ol>
-  <p class="small">Name and subtitle are limited to 30 characters, keywords to 100, the description to 4000 characters. ASU shortens name and subtitle automatically when a translation is too long.</p>
+  <p class="small">Apple limits: name and subtitle 30 characters, keywords 100, promotional text 170, description and what&rsquo;s new 4000. ASU checks every field and, if a translation is too long, shortens it at a natural boundary (keywords only by whole words) and shows a report.</p>
+
+  <h3>Updates and out-of-date translations</h3>
+  <p>A field is the unit of work: if you change a few lines of the description, the whole description is translated again in each language, while the other fields stay as they are. If the main text changes, here or directly in App Store Connect, the affected languages get a &#9888; mark in <b>Languages</b>. Translate All then updates only those fields. If your translations already match, use <b>Refresh existing translations &rarr; Mark all as up to date</b>.</p>
+
+  <div class="note"><b>About translations:</b> translations in ASU are machine-generated, both in the free mode and with Pro. They can contain mistakes in meaning, wording or tone, and keywords are suggestions, not search-volume data. Please review every language before uploading it, especially the app name, subtitle and keywords. You can edit any field before you upload.</div>
 </section>
 
 <section id="plans">
@@ -119,16 +124,18 @@ html[data-l="ru"] [data-lang="en"]{display:none}
     <div class="plan">
       <h3>Free</h3>
       <ul>
-        <li>On-device translation by Apple (macOS 15+).</li>
+        <li>On-device translation by Apple (macOS 26 or later).</li>
         <li>About 20 major languages (Arabic, Chinese, Dutch, English, French, German, Hindi, Indonesian, Italian, Japanese, Korean, Polish, Portuguese, Russian, Spanish, Thai, Turkish, Ukrainian, Vietnamese).</li>
-        <li><b>Language packs must be downloaded first</b> (macOS &rarr; System Settings &rarr; General &rarr; Language &amp; Region &rarr; Translation Languages). Plan for <b>up to 20&nbsp;GB of free disk space</b>.</li>
+        <li><b>Language packs must be downloaded first</b> (macOS &rarr; System Settings &rarr; General &rarr; Language &amp; Region &rarr; Translation Languages), for every target language <b>and</b> for your main (source) language. Plan for <b>up to 20&nbsp;GB of free disk space</b>.</li>
         <li>Works offline after the download. Nothing leaves your Mac.</li>
       </ul>
     </div>
     <div class="plan pro">
       <h3>Pro (monthly subscription)</h3>
       <ul>
-        <li>Translation is unlocked instantly for <b>34 App Store languages</b>, all in one click.</li>
+        <li>Translation into <b>all App Store languages</b>, in one click.</li>
+        <li><b>1,000,000 characters</b> of translation per subscription period, enough to translate a full listing into every language several times. Release-note updates use very little.</li>
+        <li>Your remaining limit is shown in <b>Languages</b> and renews with each subscription period.</li>
         <li>No language downloads and no extra disk space.</li>
         <li>Includes languages that Apple&rsquo;s on-device translation does not cover.</li>
         <li>Pro is selected automatically once you subscribe.</li>
@@ -158,7 +165,9 @@ html[data-l="ru"] [data-lang="en"]{display:none}
     <tr><td>No apps in the list</td><td>The key belongs to a different team, or its role is too low. Create the key in the team that owns the app.</td></tr>
     <tr><td>Version cannot be edited</td><td>Only versions in <i>Prepare for Submission</i>, <i>Waiting for Review</i> or <i>Rejected</i> states can be changed. Create a new version in App Store Connect.</td></tr>
     <tr><td>409 &ldquo;name is already used&rdquo;</td><td>See <a href="#names">section 4</a>. The language is retried with a numbered name; adjust it manually if needed.</td></tr>
-    <tr><td>Free translation is unavailable for a language</td><td>Download the language pack in System Settings (macOS 15+), or subscribe to Pro.</td></tr>
+    <tr><td>Free translation is unavailable for a language</td><td>Download the language pack in System Settings (macOS 26 or later) for <b>both</b> your main language and the target language, or subscribe to Pro.</td></tr>
+    <tr><td>&ldquo;Pro translation limit reached&rdquo;</td><td>The characters for this subscription period are used up. The limit renews automatically with the next period; the date is shown in <b>Languages</b>. Until then you can translate with the free mode or edit texts manually.</td></tr>
+    <tr><td>A language shows &#9888; &ldquo;out of date&rdquo;</td><td>The main text changed after this language was translated. Press <b>Translate All</b> to update only the changed fields, or <b>Mark all as up to date</b> if the translation is still correct.</td></tr>
     <tr><td>Pro did not unlock after paying</td><td>Press <b>Restore Purchases</b>. Make sure you are signed in with the same Apple ID.</td></tr>
   </table>
 </section>
@@ -194,7 +203,7 @@ html[data-l="ru"] [data-lang="en"]{display:none}
 
   <h3>Что понадобится</h3>
   <ul>
-    <li>Mac. Бесплатному переводу на устройстве нужна <b>macOS 15 или новее</b>.</li>
+    <li>Mac. Бесплатному переводу на устройстве нужна <b>macOS 26 или новее</b>.</li>
     <li>Аккаунт Apple Developer. Создавать API-ключи может только <b>владелец аккаунта (Account Holder)</b> или <b>администратор (Admin)</b>.</li>
   </ul>
 
@@ -224,12 +233,17 @@ html[data-l="ru"] [data-lang="en"]{display:none}
   <ol>
     <li><b>Выберите приложение и версию.</b> Версия должна быть доступной для редактирования (статус <i>Prepare for Submission</i>).</li>
     <li><b>Заполните основной язык.</b> В <b>Metadata</b> укажите название, подзаголовок, ключевые слова, описание, промо-текст, что нового и ссылки (поддержка, маркетинг, политика конфиденциальности) для основного языка.</li>
-    <li><b>Отметьте языки.</b> В <b>Languages</b> выберите языки, которые хотите добавить. Уже переведённые языки повторно не выбираются.</li>
-    <li><b>Нажмите Translate All.</b> Всё переводится прямо в приложении. Любой язык можно открыть в <b>Metadata</b> и проверить или поправить результат.</li>
-    <li><b>Загрузите.</b> В <b>Upload</b> видны только <b>новые</b> переводы. Нажмите Upload: каждый язык отправляется в App Store Connect, статус показывается рядом. Языки, которые уже были в App Store Connect, не затрагиваются.</li>
+    <li><b>Отметьте языки.</b> В <b>Languages</b> выберите нужные языки. Уже переведённые языки переводятся повторно только в тех полях, где изменился основной текст.</li>
+    <li><b>Нажмите Translate All.</b> Новые языки переводятся целиком, уже существующие только в изменённых полях. Любой язык можно открыть в <b>Metadata</b> и проверить или поправить результат.</li>
+    <li><b>Загрузите.</b> В <b>Upload</b> видно, какие <b>поля</b> и в какие языки будут отправлены. Отправляются только поля, которые отличаются от App Store Connect, всё остальное не затрагивается. Нужно перезаписать всё? Включите <i>Re-send everything</i>.</li>
     <li><b>Проверьте в App Store Connect</b> и отправьте версию на проверку как обычно.</li>
   </ol>
-  <p class="small">Название и подзаголовок ограничены 30 символами, ключевые слова 100, описание 4000. Если перевод получился длиннее, ASU автоматически укорачивает название и подзаголовок.</p>
+  <p class="small">Лимиты Apple: название и подзаголовок 30 символов, ключевые слова 100, промо-текст 170, описание и «Что нового» 4000. ASU проверяет каждое поле и, если перевод длиннее, укорачивает его по естественной границе (ключевые слова только целыми словами) и показывает отчёт.</p>
+
+  <h3>Обновления и устаревшие переводы</h3>
+  <p>Единица работы это поле: если вы изменили несколько строк описания, описание целиком переводится заново в каждом языке, а остальные поля остаются как есть. Если основной текст изменился, здесь или прямо в App Store Connect, затронутые языки получают значок &#9888; в <b>Languages</b>. Translate All обновит только эти поля. Если переводы уже соответствуют основному тексту, используйте <b>Refresh existing translations &rarr; Mark all as up to date</b>.</p>
+
+  <div class="note"><b>О переводах:</b> переводы в ASU выполняются автоматически, и в бесплатном режиме, и в Pro. Они могут содержать ошибки в смысле, формулировках или тоне, а ключевые слова это предложения, а не данные о частоте поиска. Проверяйте каждый язык перед отправкой, особенно название, подзаголовок и ключевые слова. Любое поле можно поправить до отправки.</div>
 </section>
 
 <section id="plans-ru">
@@ -238,16 +252,18 @@ html[data-l="ru"] [data-lang="en"]{display:none}
     <div class="plan">
       <h3>Бесплатно</h3>
       <ul>
-        <li>Перевод на устройстве средствами Apple (macOS 15+).</li>
+        <li>Перевод на устройстве средствами Apple (macOS 26 или новее).</li>
         <li>Около 20 основных языков (арабский, китайский, нидерландский, английский, французский, немецкий, хинди, индонезийский, итальянский, японский, корейский, польский, португальский, русский, испанский, тайский, турецкий, украинский, вьетнамский).</li>
-        <li><b>Языковые пакеты нужно скачать заранее</b> (Системные настройки &rarr; Основные &rarr; Язык и регион &rarr; Языки перевода). Заложите <b>до 20&nbsp;ГБ свободного места</b>.</li>
+        <li><b>Языковые пакеты нужно скачать заранее</b> (Системные настройки &rarr; Основные &rarr; Язык и регион &rarr; Языки перевода), для каждого языка перевода <b>и</b> для основного (исходного) языка. Заложите <b>до 20&nbsp;ГБ свободного места</b>.</li>
         <li>После загрузки работает офлайн. Ничего не покидает ваш Mac.</li>
       </ul>
     </div>
     <div class="plan pro">
       <h3>Pro (ежемесячная подписка)</h3>
       <ul>
-        <li>Перевод сразу открывается для <b>34 языков App Store</b> одним нажатием.</li>
+        <li>Перевод на <b>все языки App Store</b> одним нажатием.</li>
+        <li><b>1&nbsp;000&nbsp;000 символов</b> перевода на период подписки: этого хватит, чтобы несколько раз перевести всю страницу на все языки. Обновления «Что нового» расходуют совсем немного.</li>
+        <li>Остаток лимита виден на экране <b>Languages</b> и обновляется с каждым периодом подписки.</li>
         <li>Никаких загрузок языков и дополнительного места на диске.</li>
         <li>Включает языки, которых нет в переводе Apple на устройстве.</li>
         <li>Pro выбирается автоматически после оформления подписки.</li>
@@ -277,7 +293,9 @@ html[data-l="ru"] [data-lang="en"]{display:none}
     <tr><td>Нет приложений в списке</td><td>Ключ создан в другой команде или у него слишком низкая роль. Создайте ключ в команде, которой принадлежит приложение.</td></tr>
     <tr><td>Версию нельзя редактировать</td><td>Менять можно только версии в статусах <i>Prepare for Submission</i>, <i>Waiting for Review</i> или <i>Rejected</i>. Создайте новую версию в App Store Connect.</td></tr>
     <tr><td>409 &laquo;имя уже используется&raquo;</td><td>См. <a href="#names-ru">раздел 4</a>. Язык повторяется с именем с цифрой; при необходимости поправьте вручную.</td></tr>
-    <tr><td>Бесплатный перевод недоступен для языка</td><td>Скачайте языковой пакет в системных настройках (macOS 15+) или оформите Pro.</td></tr>
+    <tr><td>Бесплатный перевод недоступен для языка</td><td>Скачайте языковые пакеты в системных настройках (macOS 26 или новее) <b>и</b> для основного языка, и для языка перевода, или оформите Pro.</td></tr>
+    <tr><td>&laquo;Pro translation limit reached&raquo;</td><td>Символы на этот период подписки закончились. Лимит обновится автоматически со следующим периодом, дата показана в <b>Languages</b>. До этого можно переводить в бесплатном режиме или править тексты вручную.</td></tr>
+    <tr><td>У языка значок &#9888; &laquo;out of date&raquo;</td><td>Основной текст изменился после перевода этого языка. Нажмите <b>Translate All</b>, чтобы обновить только изменённые поля, или <b>Mark all as up to date</b>, если перевод по-прежнему верен.</td></tr>
     <tr><td>Pro не включился после оплаты</td><td>Нажмите <b>Restore Purchases</b>. Убедитесь, что вы вошли с тем же Apple ID.</td></tr>
   </table>
 </section>
